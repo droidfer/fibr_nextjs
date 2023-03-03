@@ -24,7 +24,8 @@ export default function companies({data}) {
   }
 
   export async function getServerSideProps() {
-    const apiCompanies = 'http://localhost:3000/v1/companies'
+    const host= process.env.API_PATH
+    const apiCompanies = `${host}/v1/companies`;
 
     const response = await fetch(apiCompanies)
     const data = await response.json()

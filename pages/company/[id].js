@@ -3,7 +3,8 @@ import Link from 'next/link';
 
 
 export async function getStaticPaths() {
-    const apiCompanies = 'http://localhost:3000/v1/companies';
+    const host= process.env.API_PATH
+    const apiCompanies = `${host}/v1/companies`;
     const res = await fetch(apiCompanies);
     const data = await res.json();
 
@@ -19,8 +20,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+    const host= process.env.API_PATH
     const id = context.params.id;
-    const apiCompanies = 'http://localhost:3000/v1/companies/' + id
+    const apiCompanies = `${host}/v1/companies/${id}`
 
     const response = await fetch(apiCompanies)
     const data = await response.json()
