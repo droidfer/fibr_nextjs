@@ -58,12 +58,33 @@ const Company = ({data, host})=> {
         <p>{company.legal_name}</p>
         <p>{company.description}</p>
         <p>{company.ruc}</p>
+
         <div>
             <input
             type='text'
             value={tempCompany.name}
+            defaultValue={data.name}
             onChange={(e)=>setTempCompany({name: e.target.value})}
             />
+            <input
+            type='text'
+            value={tempCompany.legal_name}
+            defaultValue={data.legal_name}
+            onChange={(e)=>setTempCompany({legal_name: e.target.value})}
+            />
+            <input
+            type='text'
+            value={tempCompany.description}
+            defaultValue={data.description}
+            onChange={(e)=>setTempCompany({description: e.target.value})}
+            />
+            <input
+            type='text'
+            value={tempCompany.ruc}
+            defaultValue={data.ruc}
+            onChange={(e)=>setTempCompany({ruc: e.target.value})}
+            />
+            
             {!loading && <button onClick={() => {
                 setLoading(true);
                 updateName(data.id);
