@@ -38,11 +38,17 @@ const Company = ({data, host})=> {
       }, []); 
 
     const updateName = async (companyId) => {
-        const apiCompanies = `${host}/v1/companies/${companyId}` 
-    
+        const apiCompanies = `${host}/v1/companies/${companyId}`
+        
+        //Double check if the param is not the same on the update
+        let sendCompany = {}
+        for (const key in tempCompany){
+            if (tempCompany[key] != company[key]) {sendCompany[key] = tempCompany[key]}
+        }
+
         const response = await fetch(apiCompanies , {
             method: 'PUT',
-            body: JSON.stringify({company: tempCompany}),
+            body: JSON.stringify({company: sendCompany}),
             headers: {
                 'Content-Type': 'application/json',
             }
