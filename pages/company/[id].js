@@ -30,8 +30,6 @@ export async function getStaticProps(context) {
   }
 
 const Company = ({data})=> {
-    const [name, setName] = useState('')
-
     return(
     <div>
         <h1>{data.name}</h1>

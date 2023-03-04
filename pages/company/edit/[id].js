@@ -64,25 +64,25 @@ const Company = ({data, host})=> {
             type='text'
             value={tempCompany.name}
             defaultValue={data.name}
-            onChange={(e)=>setTempCompany({name: e.target.value})}
+            onChange={(e)=>setTempCompany({...tempCompany, name: e.target.value})}
             />
             <input
             type='text'
             value={tempCompany.legal_name}
             defaultValue={data.legal_name}
-            onChange={(e)=>setTempCompany({legal_name: e.target.value})}
+            onChange={(e)=>setTempCompany({...tempCompany, legal_name: e.target.value})}
             />
             <input
             type='text'
             value={tempCompany.description}
             defaultValue={data.description}
-            onChange={(e)=>setTempCompany({description: e.target.value})}
+            onChange={(e)=>setTempCompany({...tempCompany, description: e.target.value})}
             />
             <input
             type='text'
             value={tempCompany.ruc}
             defaultValue={data.ruc}
-            onChange={(e)=>setTempCompany({ruc: e.target.value})}
+            onChange={(e)=>setTempCompany({...tempCompany, ruc: e.target.value})}
             />
             
             {!loading && <button onClick={() => {
