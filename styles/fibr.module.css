@@ -1,3 +1,18 @@
+.borderCircle {
+  border-radius: 9999px;
+}
+
+.button {
+  display: inline-block;
+  background-color: #98969b;
+  padding: 10px;
+  width: 150px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px; /* add this line */
+  font-size: 18px; /* add this line */
+}
+
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;
@@ -5,6 +20,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgb(244, 241, 241);
 }
 
 .title a {
@@ -89,3 +105,6 @@
     flex-direction: column;
   }
 }
+
+
+

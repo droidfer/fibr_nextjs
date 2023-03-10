@@ -1,25 +1,38 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/fibr.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Fibr</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
+
+        <Image
+          src="/images/fiber-optic.png" 
+          className={styles.borderCircle}
+          height={90} 
+          width={150} 
+          alt=" "
+        />
+
         <h1 className={styles.title}>
           Fiber Optics Tool
         </h1>
 
         <p className={styles.description}>
-          API Connection <code>localhost:3000</code>
+          Development <code>Rails/Nextjs</code>
         </p>
 
-        <Link href="/company/companies">Companies</Link>
+
+        <Link href="/company/companies" passHref>
+          <button className={styles.button}>Companies</button>
+        </Link>
       </main>
 
 
@@ -29,6 +42,7 @@ export default function Home() {
           padding: 5rem 0;
           flex: 1;
           display: flex;
+          
           flex-direction: column;
           justify-content: center;
           align-items: center;
