@@ -2,6 +2,10 @@
   border-radius: 9999px;
 }
 
+.borderRound {
+  border-radius: 50px;
+}
+
 .button {
   display: inline-block;
   background-color: #98969b;
