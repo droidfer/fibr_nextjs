@@ -9,13 +9,13 @@ import styles from "../../styles/fibr.module.css";
 
 export async function getStaticPaths() {
   const host = process.env.API_PATH;
-  const apiCompanies = `${host}/v1/companies`;
-  const res = await fetch(apiCompanies);
+  const apiContacs = `${host}/v1/contacts`;
+  const res = await fetch(apiContacs);
   const data = await res.json();
 
-  const paths = data.map((comp) => {
+  const paths = data.map((cont) => {
     return {
-      params: { id: comp.id.toString() },
+      params: { id: cont.id.toString() },
     };
   });
   return {
@@ -27,14 +27,14 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const host = process.env.API_PATH;
   const id = context.params.id;
-  const apiCompanies = `${host}/v1/companies/${id}`;
+  const apiContacts = `${host}/v1/contacts/${id}`;
 
-  const response = await fetch(apiCompanies);
+  const response = await fetch(apiContacts);
   const data = await response.json();
   return { props: { data } };
 }
 
-const Company = ({ data }) => {
+const Contact = ({ data }) => {
   return (
     <>
       <Head>
@@ -51,10 +51,13 @@ const Company = ({ data }) => {
           }}
         >
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {data.description}
+            {data.title}
           </Typography>
           <Typography variant="h5" component="div">
             {data.name}
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            {data.department}
           </Typography>
           <Image
             src="/images/telco.png"
@@ -63,19 +66,18 @@ const Company = ({ data }) => {
             width={300}
             alt=" "
           />
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {data.legal_name}
-          </Typography>
-          <Typography variant="body2">{data.ruc}</Typography>
-          <Typography variant="body2">{data.url}</Typography>
+
+          <Typography variant="body2">{data.email}</Typography>
+          <Typography variant="body2">{data.mobile_phone}</Typography>
+          <Typography variant="body2">{data.landline}</Typography>
         </CardContent>
         <CardActions>
-          <Link href={`/company/edit/${data.id}`} key={data.id}>
+          <Link href={`/contact/edit/${data.id}`} key={data.id}>
             <Button size="small">edit</Button>
           </Link>
         </CardActions>
 
-        <Link href="/company/companies" key="back_company" passHref>
+        <Link href="/contact/contacts" key="back_company" passHref>
           <button className={styles.button}>...back</button>
         </Link>
       </main>
@@ -95,4 +97,4 @@ const Company = ({ data }) => {
   );
 };
 
-export default Company;
+export default Contact;

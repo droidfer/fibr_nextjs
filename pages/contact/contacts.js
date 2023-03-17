@@ -7,9 +7,9 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function companies({ data }) {
+export default function contacts({ data }) {
   let displayData;
-  displayData = data.map(function (company) {
+  displayData = data.map(function (contact) {
     return (
       <CardContent
         style={{
@@ -19,14 +19,14 @@ export default function companies({ data }) {
         }}
       >
         <Typography variant="h5" component="div">
-          {company.name}
+          {contact.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {company.description}
+          {contact.title}
         </Typography>
 
-        <Link href={`/company/${company.id}`} key={company.id}>
-          <Button size="small">{company.name} description</Button>
+        <Link href={`/contact/${contact.id}`} key={contact.id}>
+          <Button size="small">{contact.name} show</Button>
         </Link>
       </CardContent>
     );
@@ -47,7 +47,7 @@ export default function companies({ data }) {
           width={300}
           alt=" "
         />
-        <h1>Telecom Companies</h1>
+        <h1>Contact of Telecom Companies</h1>
 
         {displayData}
 
@@ -73,7 +73,7 @@ export default function companies({ data }) {
 
 export async function getServerSideProps() {
   const host = process.env.API_PATH;
-  const apiCompanies = `${host}/v1/companies`;
+  const apiCompanies = `${host}/v1/contacts`;
 
   const response = await fetch(apiCompanies);
   const data = await response.json();

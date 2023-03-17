@@ -29,6 +29,10 @@ export default function Home() {
         <Link href="/company/companies" passHref>
           <button className={styles.button}>Companies</button>
         </Link>
+        <br></br>
+        <Link href="/contact/contacts" passHref>
+          <button className={styles.button}>Contacts</button>
+        </Link>
       </main>
 
       <style jsx>{`

@@ -55,13 +55,13 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 
 export async function getStaticPaths() {
   const host = process.env.API_PATH;
-  const apiCompanies = `${host}/v1/companies`;
-  const res = await fetch(apiCompanies);
+  const apiContacts = `${host}/v1/contacts`;
+  const res = await fetch(apiContacts);
   const data = await res.json();
 
-  const paths = data.map((comp) => {
+  const paths = data.map((cont) => {
     return {
-      params: { id: comp.id.toString() },
+      params: { id: cont.id.toString() },
     };
   });
   return {
@@ -73,42 +73,42 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const host = process.env.API_PATH;
   const id = context.params.id;
-  const apiCompanies = `${host}/v1/companies/${id}`;
+  const apiContacts = `${host}/v1/contacts/${id}`;
 
-  const response = await fetch(apiCompanies);
+  const response = await fetch(apiContacts);
   const data = await response.json();
   return { props: { data, host } };
 }
 
-const Company = ({ data, host }) => {
-  const [tempCompany, setTempCompany] = useState({});
-  const [company, setCompany] = useState({});
+const Contact = ({ data, host }) => {
+  const [tempContact, setTempContact] = useState({});
+  const [contact, setContact] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setCompany(data);
+    setContact(data);
   }, []);
 
-  const updateName = async (companyId) => {
-    const apiCompanies = `${host}/v1/companies/${companyId}`;
+  const updateName = async (contactId) => {
+    const apiContacts = `${host}/v1/contacts/${contactId}`;
 
     //Double check if the param is not the same on the update
-    let sendCompany = {};
-    for (const key in tempCompany) {
-      if (tempCompany[key] != company[key]) {
-        sendCompany[key] = tempCompany[key];
+    let sendContact = {};
+    for (const key in tempContact) {
+      if (tempContact[key] != contact[key]) {
+        sendContact[key] = tempContact[key];
       }
     }
 
-    const response = await fetch(apiCompanies, {
+    const response = await fetch(apiContacts, {
       method: "PUT",
-      body: JSON.stringify({ company: sendCompany }),
+      body: JSON.stringify({ contact: sendContact }),
       headers: {
         "Content-Type": "application/json",
       },
     });
     const jsonResponse = await response.json();
-    setCompany(jsonResponse);
+    setContact(jsonResponse);
     setLoading(false);
   };
 
@@ -128,17 +128,18 @@ const Company = ({ data, host }) => {
           }}
         >
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {company.description}
+            {contact.title}
           </Typography>
           <Typography variant="h5" component="div">
-            {company.name}
+            {contact.name}
           </Typography>
 
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {company.legal_name}
+            {contact.department}
           </Typography>
-          <Typography variant="body2">{company.ruc}</Typography>
-          <Typography variant="body2">{data.url}</Typography>
+          <Typography variant="body2">{contact.email}</Typography>
+          <Typography variant="body2">{contact.mobile_phone}</Typography>
+          <Typography variant="body2">{data.landline}</Typography>
 
           <Image
             src="/images/telco.png"
@@ -158,68 +159,69 @@ const Company = ({ data, host }) => {
             </InputLabel>
             <Input
               type="text"
-              value={tempCompany.name}
+              value={tempContact.name}
               defaultValue={data.name}
               inputProps={ariaLabel}
               onChange={(e) =>
-                setTempCompany({ ...tempCompany, name: e.target.value })
+                setTempContact({ ...tempContact, name: e.target.value })
               }
             />
           </FormControl>
 
           <FormControl variant="standard">
             <InputLabel shrink htmlFor="bootstrap-input">
-              Legal Name
+              Titulo
             </InputLabel>
             <Input
               type="text"
-              value={tempCompany.legal_name}
-              defaultValue={data.legal_name}
+              value={tempContact.title}
+              defaultValue={data.title}
               inputProps={ariaLabel}
               onChange={(e) =>
-                setTempCompany({ ...tempCompany, legal_name: e.target.value })
+                setTempContact({ ...tempContact, title: e.target.value })
               }
             />
           </FormControl>
 
           <FormControl variant="standard">
             <InputLabel shrink htmlFor="bootstrap-input">
-              Description
+              Email
             </InputLabel>
             <Input
               type="text"
-              value={tempCompany.description}
-              defaultValue={data.description}
+              value={tempContact.email}
+              defaultValue={data.email}
+              inputProps={ariaLabel}
               onChange={(e) =>
-                setTempCompany({ ...tempCompany, description: e.target.value })
+                setTempContact({ ...tempContact, email: e.target.value })
               }
             />
           </FormControl>
 
           <FormControl variant="standard">
             <InputLabel shrink htmlFor="bootstrap-input">
-              URL
+              Mobile Phone
             </InputLabel>
             <Input
               type="text"
-              value={tempCompany.url}
-              defaultValue={data.url}
+              value={tempContact.mobile_phone}
+              defaultValue={data.mobile_phone}
               onChange={(e) =>
-                setTempCompany({ ...tempCompany, url: e.target.value })
+                setTempContact({ ...tempContact, mobile_phone: e.target.value })
               }
             />
           </FormControl>
 
           <FormControl variant="standard">
             <InputLabel shrink htmlFor="bootstrap-input">
-              RUC
+              Landline
             </InputLabel>
             <Input
               type="text"
-              value={tempCompany.ruc}
-              defaultValue={data.ruc}
+              value={tempContact.landline}
+              defaultValue={data.landline}
               onChange={(e) =>
-                setTempCompany({ ...tempCompany, ruc: e.target.value })
+                setTempContact({ ...tempContact, landline: e.target.value })
               }
             />
           </FormControl>
@@ -241,7 +243,7 @@ const Company = ({ data, host }) => {
 
         <div></div>
 
-        <Link href={`/company/${data.id}`} key="edit_company" passHref>
+        <Link href={`/contact/${data.id}`} key="edit_contact" passHref>
           <button className={styles.button}>...back</button>
         </Link>
       </main>
@@ -261,4 +263,4 @@ const Company = ({ data, host }) => {
   );
 };
 
-export default Company;
+export default Contact;
