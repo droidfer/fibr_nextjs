@@ -22,7 +22,7 @@ export default function contacts({ data }) {
           {contact.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {contact.title}
+          {contact.title} / {contact.company?.name}
         </Typography>
 
         <Link href={`/contact/${contact.id}`} key={contact.id}>

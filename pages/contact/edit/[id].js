@@ -92,7 +92,6 @@ const Contact = ({ data, host, depData }) => {
   const [tempContact, setTempContact] = useState({});
   const [contact, setContact] = useState({});
   const [loading, setLoading] = useState(false);
-  const [dep, setDep] = useState("");
 
   useEffect(() => {
     setContact(data);
