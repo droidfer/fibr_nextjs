@@ -17,6 +17,7 @@ export default function contacts({ data }) {
           margin: "10px",
           width: "300px",
         }}
+        key={`cardContent_${contact.id}`}
       >
         <Typography variant="h5" component="div">
           {contact.name}
@@ -46,8 +47,9 @@ export default function contacts({ data }) {
           height={150}
           width={300}
           alt=" "
+          priority={true}
         />
-        <h1>Contact of Telecom Companies</h1>
+        <h1>Contacts</h1>
 
         {displayData}
 

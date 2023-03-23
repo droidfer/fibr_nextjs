@@ -35,6 +35,31 @@ export async function getStaticProps(context) {
 }
 
 const Company = ({ data }) => {
+  let displayData;
+  displayData = data.contacts.map(function (contact) {
+    return (
+      <CardContent
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.04)",
+          margin: "10px",
+          width: "300px",
+        }}
+        key={`cardContent_${contact.id}`}
+      >
+        <Typography variant="h5" component="div">
+          {contact.name}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {contact.title}
+        </Typography>
+
+        <Link href={`/contact/${contact.id}`} key={contact.id}>
+          <Button size="small">{contact.name} show</Button>
+        </Link>
+      </CardContent>
+    );
+  });
+
   return (
     <>
       <Head>
@@ -57,11 +82,13 @@ const Company = ({ data }) => {
             {data.name}
           </Typography>
           <Image
+            key="imageTelco"
             src="/images/telco.png"
             className={styles.borderRound}
             height={150}
             width={300}
             alt=" "
+            priority={true}
           />
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {data.legal_name}
@@ -74,6 +101,10 @@ const Company = ({ data }) => {
             <Button size="small">edit</Button>
           </Link>
         </CardActions>
+
+        <h1>Contacts</h1>
+
+        {displayData}
 
         <Link href="/company/companies" key="back_company" passHref>
           <button className={styles.button}>...back</button>

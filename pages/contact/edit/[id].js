@@ -105,7 +105,11 @@ const Contact = ({ data, host, depData }) => {
 
   let optionDep;
   optionDep = depData.map(function (department) {
-    return <MenuItem value={department.id}>{department.name}</MenuItem>;
+    return (
+      <MenuItem key={`optionsDep_${department.id}`} value={department.id}>
+        {department.name}
+      </MenuItem>
+    );
   });
 
   const updateName = async (contactId) => {
@@ -166,6 +170,7 @@ const Contact = ({ data, host, depData }) => {
             height={150}
             width={300}
             alt=" "
+            priority={true}
           />
 
           <Typography variant="h5" component="div">

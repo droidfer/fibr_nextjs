@@ -17,6 +17,7 @@ export default function companies({ data }) {
           margin: "10px",
           width: "300px",
         }}
+        key={`cardContent_${company.id}`}
       >
         <Typography variant="h5" component="div">
           {company.name}
@@ -41,11 +42,13 @@ export default function companies({ data }) {
 
       <main>
         <Image
+          key="imageTelco"
           src="/images/telco.png"
           className={styles.borderRound}
           height={150}
           width={300}
           alt=" "
+          priority={true}
         />
         <h1>Telecom Companies</h1>
 
