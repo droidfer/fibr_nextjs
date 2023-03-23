@@ -98,8 +98,6 @@ const Contact = ({ data, host, depData }) => {
   }, []);
 
   const handleChange = (event) => {
-    setDep(event.target.value);
-
     setTempContact({ ...tempContact, department_id: event.target.value });
   };
 
