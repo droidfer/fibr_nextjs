@@ -57,7 +57,7 @@ const Contact = ({ data }) => {
             {data.name}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {data.department}
+            {data.department?.name}
           </Typography>
           <Image
             src="/images/telco.png"

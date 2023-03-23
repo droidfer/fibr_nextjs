@@ -14,6 +14,9 @@ import FormControl from "@mui/material/FormControl";
 
 import Input from "@mui/material/Input";
 
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+
 const ariaLabel = { "aria-label": "description" };
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
@@ -73,21 +76,38 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const host = process.env.API_PATH;
   const id = context.params.id;
-  const apiContacts = `${host}/v1/contacts/${id}`;
 
+  const apiContacts = `${host}/v1/contacts/${id}`;
   const response = await fetch(apiContacts);
   const data = await response.json();
-  return { props: { data, host } };
+
+  const apiContactsDepartments = `${host}/v1/contacts/${id}/departments`;
+  const depResponse = await fetch(apiContactsDepartments);
+  const depData = await depResponse.json();
+
+  return { props: { data, host, depData } };
 }
 
-const Contact = ({ data, host }) => {
+const Contact = ({ data, host, depData }) => {
   const [tempContact, setTempContact] = useState({});
   const [contact, setContact] = useState({});
   const [loading, setLoading] = useState(false);
+  const [dep, setDep] = useState("");
 
   useEffect(() => {
     setContact(data);
   }, []);
+
+  const handleChange = (event) => {
+    setDep(event.target.value);
+
+    setTempContact({ ...tempContact, department_id: event.target.value });
+  };
+
+  let optionDep;
+  optionDep = depData.map(function (department) {
+    return <MenuItem value={department.id}>{department.name}</MenuItem>;
+  });
 
   const updateName = async (contactId) => {
     const apiContacts = `${host}/v1/contacts/${contactId}`;
@@ -135,7 +155,7 @@ const Contact = ({ data, host }) => {
           </Typography>
 
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {contact.department}
+            {contact.department?.name}
           </Typography>
           <Typography variant="body2">{contact.email}</Typography>
           <Typography variant="body2">{contact.mobile_phone}</Typography>
@@ -167,7 +187,21 @@ const Contact = ({ data, host }) => {
               }
             />
           </FormControl>
-
+          <br></br>
+          <FormControl variant="standard">
+            <InputLabel shrink htmlFor="bootstrap-input">
+              Departments
+            </InputLabel>
+            <Select
+              value={tempContact.department_id}
+              defaultValue={data.department?.id}
+              label={data.department?.name}
+              onChange={handleChange}
+            >
+              {optionDep}
+            </Select>
+          </FormControl>
+          <br></br>
           <FormControl variant="standard">
             <InputLabel shrink htmlFor="bootstrap-input">
               Titulo
