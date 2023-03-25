@@ -54,7 +54,7 @@ export default function contacts({ data }) {
         {displayData}
 
         <Link href="/" key="back_company" passHref>
-          <button className={styles.button}>...back</button>
+          <button className={styles.button}>...main</button>
         </Link>
       </main>
 

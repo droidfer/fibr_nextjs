@@ -59,6 +59,11 @@ const Contact = ({ data }) => {
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {data.department?.name}
           </Typography>
+
+          <Link href={`/company/${data.company?.id}`}>
+            {" "}
+            {data.company?.name}
+          </Link>
           <Image
             src="/images/telco.png"
             className={styles.borderRound}
@@ -78,7 +83,7 @@ const Contact = ({ data }) => {
         </CardActions>
 
         <Link href="/contact/contacts" key="back_company" passHref>
-          <button className={styles.button}>...back</button>
+          <button className={styles.button}>...all contacts</button>
         </Link>
       </main>
 

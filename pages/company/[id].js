@@ -107,7 +107,7 @@ const Company = ({ data }) => {
         {displayData}
 
         <Link href="/company/companies" key="back_company" passHref>
-          <button className={styles.button}>...back</button>
+          <button className={styles.button}>...companies</button>
         </Link>
       </main>
 
