@@ -104,6 +104,10 @@ const Company = ({ data }) => {
 
         <h1>Contacts</h1>
 
+        <Link href={`/contact/new`} key="newContact">
+          <Button size="small">new contact</Button>
+        </Link>
+
         {displayData}
 
         <Link href="/company/companies" key="back_company" passHref>

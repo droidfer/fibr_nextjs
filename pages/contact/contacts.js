@@ -51,6 +51,10 @@ export default function contacts({ data }) {
         />
         <h1>Contacts</h1>
 
+        <Link href={`/contact/new`} key="newContact">
+          <Button size="small">new</Button>
+        </Link>
+
         {displayData}
 
         <Link href="/" key="back_company" passHref>
