@@ -17,6 +17,8 @@ import Input from "@mui/material/Input";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
+import Chip from "@mui/material/Chip";
+
 const ariaLabel = { "aria-label": "description" };
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
@@ -73,6 +75,7 @@ export async function getStaticProps() {
 const Contact = ({ host, companies, depData }) => {
   const [tempContact, setTempContact] = useState({});
   const [loading, setLoading] = useState(false);
+  const [created, setCreated] = useState(false);
 
   const createContact = async () => {
     const apiContacts = `${host}/v1/contacts/`;
@@ -85,6 +88,7 @@ const Contact = ({ host, companies, depData }) => {
       },
     });
     const jsonResponse = await response.json();
+    setCreated(true);
     setLoading(false);
   };
 
@@ -122,138 +126,153 @@ const Contact = ({ host, companies, depData }) => {
       </Head>
 
       <main>
-        <CardContent
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.04)",
-            margin: "10px",
-            width: "300px",
-          }}
-        >
-          <Image
-            src="/images/telco.png"
-            className={styles.borderRound}
-            height={150}
-            width={300}
-            alt=" "
-            priority={true}
-          />
-
-          <Typography variant="h5" component="div">
-            NEW CONTACT
-          </Typography>
-
-          <FormControl variant="standard">
-            <InputLabel shrink htmlFor="bootstrap-input">
-              Name
-            </InputLabel>
-            <Input
-              type="text"
-              value={tempContact.name}
-              inputProps={ariaLabel}
-              onChange={(e) =>
-                setTempContact({ ...tempContact, name: e.target.value })
-              }
+        {created && (
+          <div style={{ lineHeight: 10, padding: 20 }}>
+            <Chip
+              label="New Contact created"
+              color="success"
+              variant="outlined"
             />
-          </FormControl>
+          </div>
+        )}
 
-          <br></br>
-          <FormControl variant="standard">
-            <InputLabel shrink htmlFor="bootstrap-input">
-              Company
-            </InputLabel>
-            <Select
-              value={tempContact.department_id}
-              onChange={handleCompanyChange}
-            >
-              {optionComp}
-            </Select>
-          </FormControl>
-          <br></br>
-
-          <br></br>
-          <FormControl variant="standard">
-            <InputLabel shrink htmlFor="bootstrap-input">
-              Departments
-            </InputLabel>
-            <Select
-              value={tempContact.department_id}
-              onChange={handleDepChange}
-            >
-              {optionDep}
-            </Select>
-          </FormControl>
-          <br></br>
-
-          <FormControl variant="standard">
-            <InputLabel shrink htmlFor="bootstrap-input">
-              Titulo
-            </InputLabel>
-            <Input
-              type="text"
-              value={tempContact.title}
-              inputProps={ariaLabel}
-              onChange={(e) =>
-                setTempContact({ ...tempContact, title: e.target.value })
-              }
-            />
-          </FormControl>
-
-          <FormControl variant="standard">
-            <InputLabel shrink htmlFor="bootstrap-input">
-              Email
-            </InputLabel>
-            <Input
-              type="text"
-              value={tempContact.email}
-              inputProps={ariaLabel}
-              onChange={(e) =>
-                setTempContact({ ...tempContact, email: e.target.value })
-              }
-            />
-          </FormControl>
-
-          <FormControl variant="standard">
-            <InputLabel shrink htmlFor="bootstrap-input">
-              Mobile Phone
-            </InputLabel>
-            <Input
-              type="text"
-              value={tempContact.mobile_phone}
-              onChange={(e) =>
-                setTempContact({ ...tempContact, mobile_phone: e.target.value })
-              }
-            />
-          </FormControl>
-
-          <FormControl variant="standard">
-            <InputLabel shrink htmlFor="bootstrap-input">
-              Landline
-            </InputLabel>
-            <Input
-              type="text"
-              value={tempContact.landline}
-              onChange={(e) =>
-                setTempContact({ ...tempContact, landline: e.target.value })
-              }
-            />
-          </FormControl>
-        </CardContent>
-
-        <CardActions>
-          {!loading && (
-            <Button
-              size="small"
-              onClick={() => {
-                setLoading(true);
-                createContact();
+        {!created && (
+          <div className="inputMenu">
+            <CardContent
+              style={{
+                backgroundColor: "rgba(0, 0, 0, 0.04)",
+                margin: "10px",
+                width: "300px",
               }}
             >
-              Create
-            </Button>
-          )}
-        </CardActions>
+              <Image
+                src="/images/telco.png"
+                className={styles.borderRound}
+                height={150}
+                width={300}
+                alt=" "
+                priority={true}
+              />
 
-        <div></div>
+              <Typography variant="h5" component="div">
+                NEW CONTACT
+              </Typography>
+
+              <FormControl variant="standard">
+                <InputLabel shrink htmlFor="bootstrap-input">
+                  Name
+                </InputLabel>
+                <Input
+                  type="text"
+                  value={tempContact.name}
+                  inputProps={ariaLabel}
+                  onChange={(e) =>
+                    setTempContact({ ...tempContact, name: e.target.value })
+                  }
+                />
+              </FormControl>
+
+              <br></br>
+              <FormControl variant="standard">
+                <InputLabel shrink htmlFor="bootstrap-input">
+                  Company
+                </InputLabel>
+                <Select
+                  value={tempContact.department_id}
+                  onChange={handleCompanyChange}
+                >
+                  {optionComp}
+                </Select>
+              </FormControl>
+              <br></br>
+
+              <br></br>
+              <FormControl variant="standard">
+                <InputLabel shrink htmlFor="bootstrap-input">
+                  Departments
+                </InputLabel>
+                <Select
+                  value={tempContact.department_id}
+                  onChange={handleDepChange}
+                >
+                  {optionDep}
+                </Select>
+              </FormControl>
+              <br></br>
+
+              <FormControl variant="standard">
+                <InputLabel shrink htmlFor="bootstrap-input">
+                  Titulo
+                </InputLabel>
+                <Input
+                  type="text"
+                  value={tempContact.title}
+                  inputProps={ariaLabel}
+                  onChange={(e) =>
+                    setTempContact({ ...tempContact, title: e.target.value })
+                  }
+                />
+              </FormControl>
+
+              <FormControl variant="standard">
+                <InputLabel shrink htmlFor="bootstrap-input">
+                  Email
+                </InputLabel>
+                <Input
+                  type="text"
+                  value={tempContact.email}
+                  inputProps={ariaLabel}
+                  onChange={(e) =>
+                    setTempContact({ ...tempContact, email: e.target.value })
+                  }
+                />
+              </FormControl>
+
+              <FormControl variant="standard">
+                <InputLabel shrink htmlFor="bootstrap-input">
+                  Mobile Phone
+                </InputLabel>
+                <Input
+                  type="text"
+                  value={tempContact.mobile_phone}
+                  onChange={(e) =>
+                    setTempContact({
+                      ...tempContact,
+                      mobile_phone: e.target.value,
+                    })
+                  }
+                />
+              </FormControl>
+
+              <FormControl variant="standard">
+                <InputLabel shrink htmlFor="bootstrap-input">
+                  Landline
+                </InputLabel>
+                <Input
+                  type="text"
+                  value={tempContact.landline}
+                  onChange={(e) =>
+                    setTempContact({ ...tempContact, landline: e.target.value })
+                  }
+                />
+              </FormControl>
+            </CardContent>
+
+            <CardActions>
+              {!loading && (
+                <Button
+                  size="small"
+                  onClick={() => {
+                    setLoading(true);
+                    createContact();
+                  }}
+                >
+                  Create
+                </Button>
+              )}
+            </CardActions>
+          </div>
+        )}
 
         <Link href="/contact/contacts" key="back_company" passHref>
           <button className={styles.button}>...all contacts</button>
@@ -263,6 +282,16 @@ const Contact = ({ host, companies, depData }) => {
       <style jsx>{`
         main {
           padding: 5rem 0;
+          flex: 1;
+          display: flex;
+
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        successcreate {
+          padding: 5rem;
           flex: 1;
           display: flex;
 
