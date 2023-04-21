@@ -31,10 +31,23 @@ export async function getStaticProps(context) {
 
   const response = await fetch(apiContacts);
   const data = await response.json();
-  return { props: { data } };
+  return { props: { data, host } };
 }
 
-const Contact = ({ data }) => {
+const Contact = ({ data, host }) => {
+  const deleteContact = async () => {
+    const apiContacts = `${host}/v1/contacts/${data.id}`;
+
+    const response = await fetch(apiContacts, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const jsonResponse = await response.json();
+  };
+
   return (
     <>
       <Head>
@@ -80,6 +93,15 @@ const Contact = ({ data }) => {
           <Link href={`/contact/edit/${data.id}`} key={data.id}>
             <Button size="small">edit</Button>
           </Link>
+
+          <Button
+            size="small"
+            onClick={() => {
+              deleteContact();
+            }}
+          >
+            Delete
+          </Button>
         </CardActions>
 
         <Link href="/contact/contacts" key="back_company" passHref>
